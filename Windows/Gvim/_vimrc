@@ -37,13 +37,11 @@ Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot'
 Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'morhetz/gruvbox'
+Plug 'romainl/Apprentice'
 
 call plug#end()
 
-colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark = 'soft' 
+colorscheme apprentice 
 if (has("termguicolors"))
  set termguicolors
 endif
@@ -58,7 +56,11 @@ endif
 set undodir=~/.vim/undo-dir
 set undofile
 
-set columns=70 lines=110
+set columns=80 lines=60
+
+command! Wq wq
+command! W w
+command! Q q
 
 set statusline=%f "tail of the filename
 set laststatus=2
