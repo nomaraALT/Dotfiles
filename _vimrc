@@ -82,15 +82,12 @@ Plug 'jonathanfilip/vim-lucius'
 
 call plug#end()
 
-
 " Colorscheme 
 if (has("termguicolors"))
  set termguicolors
 endif
 colorscheme lucius
 set background=dark
-set t_Co=256
-set nu
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -114,7 +111,7 @@ set undodir=~/.vim/undo-dir
 set undofile
 nnoremap <leader>u :UndotreeShow<CR>
 
-" Move around windows 
+" Move around  
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
