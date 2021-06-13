@@ -1,5 +1,5 @@
 " Basics
-let mapleader = "\<space>"
+let mapleader = " "
 set nocompatible
 set hidden
 set tabstop=4 softtabstop=4
