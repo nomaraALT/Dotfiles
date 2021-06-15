@@ -1,104 +1,89 @@
-" Basics
+"==============================================
+"=================== Basic=====================
+"==============================================
+
+" Map leader to
 let mapleader = " "
+
 set nocompatible
+set updatetime=750
+set shortmess+=c
+
+" hidden buffers
 set hidden
-set tabstop=4 softtabstop=4
+
+" Backspace indent
+set backspace=indent,eol,start
+
+" Encoding
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set ttyfast
+
+" Tabs
+set tabstop=4
+set softtabstop=0
 set shiftwidth=4
+set expandtab
+set autoindent
 set smartindent
-set clipboard=unnamed
-set backspace=2
-set noswapfile
-set nowrap
-set nobackup
-set nowritebackup
+
+" Search
+set hlsearch
 set incsearch
 set nohlsearch
-filetype plugin on
-syntax on
-set encoding=utf-8
+set ignorecase
+set smartcase
+
+" Visuals
 set number relativenumber
-set autoindent
-set cindent
-set cmdheight=2
-set updatetime=100
-set shortmess+=c
+set cmdheight=1
 set cursorline
 set cursorcolumn
-set guifont=Consolas:h13:cANSI
+set ruler
+set nowrap
+syntax on
 
-command! Wq wq
-command! W w
-command! Q q
-
-" Remove menu bar , tool bar scrollbar etc from the GUI
-set guioptions-=m  "menu bar
-set guioptions-=T  "toolbar
-set guioptions-=r  "scrollbar
-set guioptions-=L
-
-" Gui size
-set columns=80 lines=90
+" File format
+filetype plugin indent on
+set noswapfile
+set nobackup
+set nowritebackup
+set fileformats=unix,dos
+set autoread
 
 " Statusline
-set noshowmode
 set laststatus=2
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ "\<C-V>" : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'R ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \}
+"==============================================
+"================= Plugins ====================
+"==============================================
 
-set statusline=
-set statusline+=%0*\ %n\                     
-set statusline+=\ %{toupper(g:currentmode[mode()])}
-set statusline+=%1*\ %<%F%m%r%h%w\          
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\ %y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %2p%%
-set statusline+=\ %l:%c
-set statusline+=\ 
-
-
-" Plugins 
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'mbbill/undotree'
 Plug 'SirVer/ultisnips'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'honza/vim-snippets'
 Plug 'jonathanfilip/vim-lucius'
 
 call plug#end()
 
-" Colorscheme 
-if (has("termguicolors"))
- set termguicolors
-endif
-colorscheme lucius
-set background=dark
-
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-b>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 " let g:UltiSnipsEditSplit="vertical"
 
-" FZF
-nnoremap <C-p> :Files<CR>
-nnoremap <leader>p :Buffers<CR>
+set wildignorecase
+set wildmenu
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__,*.exe,*.dll,*.png,*.jpg,*.so,*.lib,*.zip,*.gz,*.bmp,*.gif,*.jpeg,*.doc,*.pdf,*.xls,*.xlsx,*.docx,*.csproj,*.pdb,*.resx,*.sln,*.suo,*.out,*.idb
 
 " Undotree 
 if !isdirectory($HOME."/.vim")
@@ -109,11 +94,83 @@ if !isdirectory($HOME."/.vim/undo-dir")
 endif
 set undodir=~/.vim/undo-dir
 set undofile
-nnoremap <leader>u :UndotreeShow<CR>
 
-" Move around  
+"==============================================
+"=============== Colorscheme ==================
+"==============================================
+
+if has("gui_running")
+    " Remove menu bar , tool bar scrollbar etc 
+    set guioptions-=m  
+    set guioptions-=T  
+    set guioptions-=r  
+    set guioptions-=L
+    " Gui size
+    set columns=180 lines=60
+    " Gui font
+    if has("win32") || has("win64")
+        set guifont=Consolas:h11:cANSI
+    elseif has("unix")
+        set guifont=Inconsolata\ 11
+    endif
+else
+    if &term == "screen-256color"
+        set term=xterm-256color
+    endif
+    if has("termguicolors") && $COLORTERM ==? "truecolor"
+        set termguicolors
+    endif
+endif
+
+colorscheme lucius
+
+"==============================================
+"================= Mapping ====================
+"==============================================
+
+" Switching windows 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 
+" Resize windows
+nnoremap <Up> 10<C-W>+
+nnoremap <Down> 10<C-W>-
+nnoremap <Left> 10<C-W><
+nnoremap <Right> 10<C-W>>
+
+" Youcompleteme
+nmap <leader>gp :YcmCompleter GoToDefinition<CR>
+nmap <leader>gpp :YcmCompleter GoToDeclaration<CR>
+nmap <leader>gr :YcmCompleter GoToReferences<CR>
+nmap <leader>gt :YcmCompleter GoToInclude<CR>
+nmap <leader>grr :YcmCompleter RefactorRename<CR>
+
+" Undotree
+nnoremap <silent> <leader>u :UndotreeShow<CR>
+
+if has("clipboard")
+    if has("unnamedplus")
+        set clipboard=unnamed,unnamedplus
+    else
+        set clipboard=unnamed
+    endif
+else
+    set clipboard=
+endif
+
+"==============================================
+"============== Abbreviations =================
+"==============================================
+
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
