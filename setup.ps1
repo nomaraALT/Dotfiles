@@ -47,6 +47,7 @@ function CopyFile
 }
 
 CreateDirectory -DirectoryToCreate "$HOME/.vim"
+CreateDirectory -DirectoryToCreate "$HOME/vimfiles"
 CreateDirectory -DirectoryToCreate "$HOME/.vim/undo-dir"
 CopyFile -FileToCopy "_vimrc" -PathToFile "$HOME/_vimrc"
 CopyFile -FileToCopy "coc-settings.json" -PathToFile "$HOME/vimfiles/coc-settings.json"
@@ -117,9 +118,9 @@ else
     } 
 
     if((Get-Process -Name "gvim" -ErrorAction SilentlyContinue) -cne $null) {
-        Start-Sleep -s 200 # 3.20 minutes. I need to wait for vim-plug install the plugins.
+        Start-Sleep -s 60 # 1 minutes. I need to wait for vim-plug install the plugins.
             Stop-Process -Name "gvim"
-            Start-Sleep -s 5
+            Start-Sleep -s 3
     }
 
     try {

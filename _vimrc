@@ -53,15 +53,16 @@ set autoread
 " Plugins 
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-commentary'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'mbbill/undotree'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'will133/vim-dirdiff'
-Plug 'unblevable/quick-scope'
-Plug 'preservim/tagbar'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'tpope/vim-commentary'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'mbbill/undotree'
+  Plug 'jonathanfilip/vim-lucius'
+  Plug 'will133/vim-dirdiff'
+  Plug 'unblevable/quick-scope'
+  Plug 'preservim/tagbar'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'tpope/vim-surround'
 
 call plug#end()
 
@@ -151,24 +152,27 @@ set laststatus=2
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 "Colorscheme 
-set t_Co=256
 if has("gui_running")
-    set guioptions=egc " Remove menu bar , tool bar scrollbar etc 
-    set columns=180 lines=60 " Gui size
-    " Gui font
-    if has("win32") || has("win64")
-        set gfn=Fira_Code_SemiBold:h10:W600:cANSI:qDRAFT
-        set renderoptions=type:directx
-    elseif has("unix")
-        set gfn=Monospace\ 10
-    endif
+  set guioptions=egc " Remove menu bar , tool bar scrollbar etc 
+  set columns=180 lines=60 " Gui size
+
+  if has("win32") || has("win64")
+    set gfn=Iosevka_Fixed_Extended:h10:cANSI:qDRAFT " Gui font
+    set renderoptions=type:directx
+  elseif has("unix")
+    set gfn=Monospace\ 10
+  endif
+
 else
-    if &term == "screen-256color"
-        set term=xterm-256color
-    endif
-    if has("termguicolors") && $COLORTERM ==? "truecolor"
-        set termguicolors
-    endif
+  set t_Co=256
+
+  if &term == "screen-256color"
+    set term=xterm-256color
+  endif
+  if has("termguicolors") && $COLORTERM ==? "truecolor"
+    set termguicolors
+  endif
+
 endif
 
 colorscheme lucius
