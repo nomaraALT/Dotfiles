@@ -63,9 +63,9 @@ if(-not (Test-Path -LiteralPath "$HOME/vimfiles/ctags")) {
         Write-Host "-----[*] Downloading ctags. Requeride for tagbar vim."
             &git clone https://github.com/universal-ctags/ctags.git $HOME/vimfiles/ctags
             Start-Sleep -s 3
-            &Set-Location -Path "$HOME\vimfiles\ctags"  #i dont know why but miss a file to compile if i dont move to the other folder. Thas why need to moving.
+            &Set-Location -Path "$HOME\vimfiles\ctags"  
             &nmake -f mk_mvc.mak
-            &Set-Location -Path $DotfileLocation  #going back to Dotfiles folder. En case i need to do more thing like move files etc.
+            &Set-Location -Path $DotfileLocation  
     }
     catch {
             Write-Host "Unable to Download and compile 'ctags' for tagbar vim"

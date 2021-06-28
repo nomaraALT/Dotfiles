@@ -19,7 +19,7 @@ set fileencodings=utf-8
 set ttyfast
 
 " Tabs
-set tabstop=4
+set tabstop=8
 set softtabstop=0
 set shiftwidth=4
 set expandtab smarttab
@@ -39,7 +39,6 @@ set cmdheight=1
 set cursorline
 set cursorcolumn
 set ruler
-set nowrap
 syntax on
 
 " File format
@@ -48,7 +47,6 @@ set noswapfile
 set nobackup
 set nowritebackup
 set fileformats=unix,dos
-set autoread
 
 " Plugins 
 call plug#begin('~/.vim/plugged')
@@ -57,12 +55,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'mbbill/undotree'
-  Plug 'jonathanfilip/vim-lucius'
   Plug 'will133/vim-dirdiff'
   Plug 'unblevable/quick-scope'
   Plug 'preservim/tagbar'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'tpope/vim-surround'
+  Plug 'jnurmine/Zenburn'
 
 call plug#end()
 
@@ -80,6 +78,10 @@ nnoremap <F5> :UndotreeToggle<CR>
 " Tagbar
 let g:tagbar_ctags_bin ='$HOME\vimfiles\ctags\ctags.exe'
 let g:tagbar_position = 'leftabove'
+let g:tagbar_height = 18
+let g:tagbar_autofocus = 1
+let g:tagbar_show_data_type = 1
+let g:tagbar_show_tag_linenumbers = 2
 nnoremap <leader>u :TagbarToggle<CR>
 
 " Switching windows 
@@ -97,6 +99,10 @@ nnoremap <Right> 10<C-W>>
 " Indent in visual mode
 vnoremap < <gv
 vnoremap > >gv
+
+" Search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Coc
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
@@ -121,8 +127,7 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
- " Abbreviations
-"from https://vim-bootstrap.com/ thanks
+ " Abbreviations from https://vim-bootstrap.com/
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -175,6 +180,44 @@ else
 
 endif
 
-colorscheme lucius
-LuciusBlack
+let g:zenburn_disable_Label_underline = 1
+colorscheme Zenburn
 
+" Some AutoCmd rules and functions from https://vim-bootstrap.com/
+command! FixWhitespace :%s/\s\+$//e
+
+augroup vimrc-sync-fromstart
+  autocmd!
+  autocmd BufEnter * :syntax sync maxlines=200
+augroup END
+
+if !exists('*s:setupWrapping')
+  function s:setupWrapping()
+    set wrap
+    set wm=2
+    set textwidth=79
+  endfunction
+endif
+
+augroup vimrc-remember-cursor-position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
+
+augroup vimrc-wrapping
+  autocmd!
+  autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+augroup END
+
+augroup vimrc-make-cmake
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
+augroup END
+
+set autoread
