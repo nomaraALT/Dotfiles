@@ -28,7 +28,7 @@
         "storagePath": "/tmp/intelephense"
       }
     }
-  }, 
+  },
   "jedi.enable": true,
   "jedi.startupMessage": false,
   "jedi.markupKindPreferred": "plaintext",

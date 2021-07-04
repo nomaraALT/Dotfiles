@@ -19,12 +19,10 @@ set fileencodings=utf-8
 set ttyfast
 
 " Tabs
-set tabstop=8
+set tabstop=4
 set softtabstop=0
 set shiftwidth=4
-set expandtab smarttab
-set autoindent
-set smartindent
+set expandtab
 
 " Search
 set hlsearch
@@ -48,7 +46,7 @@ set nobackup
 set nowritebackup
 set fileformats=unix,dos
 
-" Plugins 
+" Plugins
 call plug#begin('~/.vim/plugged')
 
   Plug 'tpope/vim-commentary'
@@ -70,7 +68,7 @@ set wildmenu
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__,*.exe,*.dll,*.png,*.jpg,*.so,*.lib,*.zip,*.gz,*.bmp,*.gif,*.jpeg,*.doc,*.pdf,*.xls,*.xlsx,*.docx,*.csproj,*.pdb,*.resx,*.sln,*.suo,*.out,*.idb
 
-" Undotree 
+" Undotree
 set undodir=~/.vim/undo-dir
 set undofile
 nnoremap <F5> :UndotreeToggle<CR>
@@ -84,7 +82,7 @@ let g:tagbar_show_data_type = 1
 let g:tagbar_show_tag_linenumbers = 2
 nnoremap <leader>u :TagbarToggle<CR>
 
-" Switching windows 
+" Switching windows
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
@@ -106,7 +104,7 @@ nnoremap N Nzzzv
 
 " Coc
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>  
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
@@ -156,9 +154,9 @@ set modelines=10
 set laststatus=2
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
-"Colorscheme 
+"Colorscheme
 if has("gui_running")
-  set guioptions=egc " Remove menu bar , tool bar scrollbar etc 
+  set guioptions=egc " Remove menu bar , tool bar scrollbar etc
   set columns=180 lines=60 " Gui size
 
   if has("win32") || has("win64")

@@ -2,7 +2,7 @@
 
 $DotfileLocation = Get-Location
 
-function CreateDirectory 
+function CreateDirectory
 {
     [CmdletBinding()]
         param (
@@ -17,13 +17,13 @@ function CreateDirectory
                 catch {
                     Write-Error -Message "Unable to create directory '$DirectoryToCreate'. ERROR was: $_" -Error
                 }
-            } 
+            }
             else {
                 Write-Host "---[ ] Directory '$DirectoryToCreate' already existed."
             }
 }
 
-function CopyFile 
+function CopyFile
 {
     [CmdletBinding()]
         param (
@@ -63,9 +63,9 @@ if(-not (Test-Path -LiteralPath "$HOME/vimfiles/ctags")) {
         Write-Host "-----[*] Downloading ctags. Requeride for tagbar vim."
             &git clone https://github.com/universal-ctags/ctags.git $HOME/vimfiles/ctags
             Start-Sleep -s 3
-            &Set-Location -Path "$HOME\vimfiles\ctags"  
+            &Set-Location -Path "$HOME\vimfiles\ctags"
             &nmake -f mk_mvc.mak
-            &Set-Location -Path $DotfileLocation  
+            &Set-Location -Path $DotfileLocation
     }
     catch {
             Write-Host "Unable to Download and compile 'ctags' for tagbar vim"
@@ -79,10 +79,10 @@ if ((Get-Command "python.exe" -ErrorAction SilentlyContinue) -eq $null)
     Write-Host " 'python.exe' not found in PATH."
 }
 else
-{  
+{
         try {
                 &pip install -U jedi-language-server
-        } 
+        }
         catch {
             Write-Host "Unable to run 'pip'"
         }
@@ -93,12 +93,12 @@ if ((Get-Command "luarocks.exe" -ErrorAction SilentlyContinue) -eq $null)
     Write-Host " 'luarocks.exe' not found in PATH."
 }
 else
-{  
+{
         try {
                 &luarocks install --server=http://luarocks.org/dev lua-lsp
                 Start-Sleep -s 3
-                &luarocks install luacheck 
-        } 
+                &luarocks install luacheck
+        }
         catch {
             Write-Host "Unable to run 'luarocks'"
         }
@@ -108,14 +108,14 @@ if ((Get-Command "gvim.exe" -ErrorAction SilentlyContinue) -eq $null)
 {
     Write-Host " 'gvim.exe' not found in PATH."
 }
-else 
+else
 {
     try {
             &gvim -c "PlugInstall"
-    } 
+    }
     catch {
         Write-Host "Unable to run 'PlugInstall'. You must to do manually."
-    } 
+    }
 
     if((Get-Process -Name "gvim" -ErrorAction SilentlyContinue) -cne $null) {
         Start-Sleep -s 60 # 1 minutes. I need to wait for vim-plug install the plugins.
