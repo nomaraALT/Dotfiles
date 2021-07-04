@@ -59,6 +59,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'tpope/vim-surround'
   Plug 'jnurmine/Zenburn'
+  Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -183,6 +184,7 @@ colorscheme Zenburn
 
 " Some AutoCmd rules and functions from https://vim-bootstrap.com/
 command! FixWhitespace :%s/\s\+$//e
+autocmd BufWritePost * :FixWhitespace
 
 augroup vimrc-sync-fromstart
   autocmd!
